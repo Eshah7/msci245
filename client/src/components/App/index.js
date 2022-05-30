@@ -2,122 +2,153 @@ import * as React from 'react';
 
 const App = () => {
 
-  const Search = (props) => {
-    const [query, setQuery] = React.useState("")
-    const [difficulty, setDifficulty] = React.useState("1")
-
-    function handleChange(event){
-        setQuery(event.target.value);
-    }
-
-    function handleSelectChange(event){
-      setDifficulty(event.target.value)
-    }
-
-    function handleSubmit(event){
-      props.handleSearch(query, difficulty)
-    }
-
-    return (
-      <div>
-        <input type="text" value={query} onChange={handleChange}>
-
-        </input>
-        <select onChange={handleSelectChange}>
-          <option value={"1"}>
-            1
-          </option>
-          <option value={"2"}>
-            2
-          </option>
-          <option value={"3"}>
-            3
-          </option>
-        </select>
-
-        <button onClick={handleSubmit}>search</button>
-      </div>
-    )
-  }
-
-  const List = (props) => {
-    const {recipes} = props 
-
-    return (
-      <div> 
-        {
-          recipes.map((recipe) => {
-            return (
-              <>
-                <h3>{recipe.title}</h3>
-                <ul>
-                  {
-                    recipe.ingredients.map((ingredient) => {
-                      return (<li>{ingredient}</li>)
-                    })
-                  }
-                </ul>
-                <h4>{recipe.instructions}</h4>
-              </>
-            )
-          })
-        }
-      </div>
-    )
-  }
-
-  const recipes = [
+  const initialRecipes = [
     {
       title: 'Fruit salad',
       difficulty: '2',
       ingredients: ['apple', 'banana', 'blueberries', 'raisins', 'walnuts'],
       calories: "200",
-      instructions: "Wash fresh fruit. Slice fruit into pieces. Mix all ingredients in a bowl."
+      instructions: "Wash fresh fruit. Slice fruit into pieces. Mix all ingredients in a bowl.",
+      recipeID: 1
     }, {
       title: 'Avocado wrap',
       difficulty: '3',
       ingredients: ['avocado', 'spinach', 'pine nuts', 'mayo', 'apple', 'tortilla bread'],
       calories: "400",
-      instructions: "Wash all fruits and vegetables. Slice avocadoes and apples. Mix all ingredients and wrap them in a tortilla bread."
+      instructions: "Wash all fruits and vegetables. Slice avocados and apples. Mix all ingredients and wrap them in a tortilla bread.",
+      recipeID: 2
     },
   ];
 
-  const [recipesToDisplay, setRecipesToDisplay] = React.useState(recipes)
 
-  function handleSearch(query, difficulty){
-    const searchRecipes = recipes.filter((recipe) => {
-      if (parseInt(difficulty) < parseInt(recipe.difficulty)) return false;
-      if (recipe.ingredients.indexOf(query) === -1 ) return false;
-      return true
-    })
+  const [recipes, setRecipes] = React.useState(initialRecipes);
+  const [ingredientSearchTerm, setIngredientSearchTerm] = React.useState('');
+  const [difficultyLevel, setDifficultyLevel] = React.useState('');
 
-    setRecipesToDisplay(searchRecipes)
-  }
+
+  const handleRemoveRecipe = (item) => {
+    const newRecipes = recipes.filter(
+      (recipe) => item.recipeID !== recipe.recipeID);
+    setRecipes(newRecipes);
+  };
+
+  React.useEffect(() => {
+    console.log("recipes " + recipes[0].title);
+  }, []);
+
+
+
+  const handleIngredientSearch = (event) => {
+    setIngredientSearchTerm(event.target.value);
+  };
+
+  const handleDifficultyLevelSearch = (event) => {
+    setDifficultyLevel(event.target.value);
+  };
+
+  const foundRecipesByIngredients = recipes.filter(function (recipe) {
+    if (ingredientSearchTerm) {
+      return recipe.ingredients.includes(ingredientSearchTerm);
+    } else {
+      return recipe;
+    }
+  });
+
+  const foundRecipesByDifficulty = foundRecipesByIngredients.filter(function (recipe) {
+    if (difficultyLevel) {
+      return recipe.difficulty <= difficultyLevel;
+    } else {
+      return recipe;
+    }
+  });
+
 
   return (
     <div>
       <h1>
         Recipe finder
       </h1>
-    
-    <Search 
-      handleSearch={handleSearch}
-    />
-
-    <List 
-      recipes = {recipesToDisplay}
-    />
 
 
+      <Search
+        label="Search by ingredient: "
+        onSearch={handleIngredientSearch}
+      />
+
+      <Search
+        label="Search by max difficulty level: "
+        onSearch={handleDifficultyLevelSearch}
+      />
+
+      <p>
+        Containing ingredient: <strong>{ingredientSearchTerm}</strong>.
+      </p>
+
+      <p>
+        Max difficulty level: <strong>{ingredientSearchTerm}</strong>.
+      </p>
+
+      <hr />
+
+
+      <List
+        list={recipes}
+        onRemoveItem={handleRemoveRecipe}
+      />
 
 
     </div>
   );
+}
 
-  
+const Search = (props) => (
+  <div>
+    <label htmlFor="search">{props.label}</label>
+    <input
+      id="search"
+      type="text"
+      onChange={props.onSearch}
+    />
+
+  </div>
+);
+
+
+
+const List = ({ list, onRemoveItem }) => {
+  return (
+    <ul>
+      {list.map((item) => {
+        return (
+          <Item
+            item={item}
+            onRemoveItem={onRemoveItem}
+          />
+        );
+      })}
+    </ul>
+
+  )
 }
 
 
+const Item = ({ item, onRemoveItem }) => (
+  <li>
+    <p> {"Title: " + item.title}</p>
+    <p> {"Difficulty: " + item.difficulty}</p>
+    <p>Ingredients: </p>
+    <ul>
+      {item.ingredients.map((ingredient) => (<li>{ingredient}</li>))}
+    </ul>
+    <p>{"Instructions: " + item.instructions}</p>
+    <p>{"Calories: " + item.calories}</p>
+    <p>
+      <button type="button" onClick={() => onRemoveItem(item)}>
+        Dismiss
+      </button>
+    </p>
+  </li>
+)
 
 
 
