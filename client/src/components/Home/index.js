@@ -89,12 +89,23 @@ const styles = theme => ({
 
 
 class Home extends Component {
+  const [movieName, setMovieName] = React.useState('');
+
+  const handleChange = (event) => {
+    setMovieName(event.target.value);
+  };
+  
   constructor(props) {
+
     super(props);
     this.state = {
       userID: 1,
       mode: 0
+
+      
     }
+
+    
   };
 
   componentDidMount() {
@@ -133,12 +144,6 @@ class Home extends Component {
 
   render() {
     const { classes } = this.props;
-
-    //const [movieName, setMovieName] = React.useState('');
-
-    /*const handleChange = (event) => {
-      setMovieName(event.target.value);
-    };*/
 
     const mainMessage = (
       <Grid
