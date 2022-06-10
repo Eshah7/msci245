@@ -29,7 +29,67 @@ const fetch = require("node-fetch");
 
 const opacityValue = 0.9;
 
-const theme = createTheme({
+const lightTheme = createTheme({
+  palette: {
+    type: 'light',
+    background: {
+      default: "#ffffff"
+    },
+    primary: {
+      main: '#ef9a9a',
+      light: '#ffcccb',
+      dark: '#ba6b6c',
+      background: '#eeeeee'
+    },
+    secondary: {
+      main: "#b71c1c",
+      light: '#f05545',
+      dark: '#7f0000'
+    },
+  },
+});
+
+const MoviePaper = styled(Paper)(({ theme }) => ({
+  opacity: 0.7,
+  backgroundColor: theme.palette.primary.background,
+  padding: 8,
+  borderRadius: 4,
+  marginTop: theme.spacing(2),
+  marginBottom: theme.spacing(2)
+}));
+
+const MainGridContainer = styled(Grid)(({ theme }) => ({
+  margin: theme.spacing(4),
+}))
+
+const Home = () => {
+
+
+
+  return (
+    <ThemeProvider theme={lightTheme}>
+      <Box>
+        <MainGridContainer
+          container
+          spacing={1}
+          style={{ maxWidth: '50%' }}
+          direction="column"
+          justify="flex-start"
+          alignItems="stretch"
+        >
+          <Typography variant="h3" gutterBottom component="div">
+            Movie Reviews
+          </Typography>
+
+        
+
+        </MainGridContainer>
+      </Box>
+    </ThemeProvider>
+  );
+}
+
+/*const theme = createTheme({
   palette: {
     type: 'dark',
     background: {
@@ -85,153 +145,9 @@ const styles = theme => ({
     margin: theme.spacing(1),
     minWidth: 120,
   },
-});
+});*/
 
 
-class Home extends Component {
-  const [movieName, setMovieName] = React.useState('');
 
-  const handleChange = (event) => {
-    setMovieName(event.target.value);
-  };
-  
-  constructor(props) {
-
-    super(props);
-    this.state = {
-      userID: 1,
-      mode: 0
-
-      
-    }
-
-    
-  };
-
-  componentDidMount() {
-    //this.loadUserSettings();
-  }
-
-
-  loadUserSettings() {
-    this.callApiLoadUserSettings()
-      .then(res => {
-        //console.log("loadUserSettings returned: ", res)
-        var parsed = JSON.parse(res.express);
-        console.log("loadUserSettings parsed: ", parsed[0].mode)
-        this.setState({ mode: parsed[0].mode });
-      });
-  }
-
-  callApiLoadUserSettings = async () => {
-    const url = serverURL + "/api/loadUserSettings";
-
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        //authorization: `Bearer ${this.state.token}`
-      },
-      body: JSON.stringify({
-        userID: this.state.userID
-      })
-    });
-    const body = await response.json();
-    if (response.status !== 200) throw Error(body.message);
-    console.log("User settings: ", body);
-    return body;
-  }
-
-  render() {
-    const { classes } = this.props;
-
-    const mainMessage = (
-      <Grid
-        container
-        spacing={0}
-        direction="column"
-        justify="flex-start"
-        alignItems="flex-start"
-        style={{ minHeight: '100vh' }}
-        className={classes.mainMessageContainer}
-      >
-        <Grid item>
-
-          <Typography
-            variant={"h3"}
-            className={classes.mainMessage}
-            align="flex-start"
-          >
-            {this.state.mode === 0 ? (
-              <React.Fragment>
-                Review a Movie
-              </React.Fragment>
-            ) : (
-              <React.Fragment>
-                Welcome back!
-              </React.Fragment>
-            )}
-          </Typography>
-
-        </Grid>
-      </Grid>
-    )
-
-    /*const movieTitlesSelect = (
-      <div>
-        <FormControl className={classes.formControl}>
-          <InputLabel id="demo-simple-select-label">Movie Titles</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={movieName}
-            onChange={handleChange}
-          >
-            <MenuItem value={1}>American Psycho</MenuItem>
-            <MenuItem value={2}>In the Heights</MenuItem>
-            <MenuItem value={3}>The Handmaiden</MenuItem>
-            <MenuItem value={4}>Blade Runner</MenuItem>
-            <MenuItem value={5}>Titane</MenuItem>
-
-          </Select>
-        </FormControl>
-      </div>
-    )*/
-
-
-    return (
-      <MuiThemeProvider theme={theme}>
-        <div className={classes.root}>
-          <CssBaseline />
-          <Paper
-            className={classes.paper}
-          >
-            {mainMessage}
-            {/*movieTitlesSelect*/}
-            <Typography variant="h6" gutterTop component="div">
-              <form className={classes.root} noValidate autoComplete="off">
-                <TextField id="review-title" label="Review Title" variant="outlined"/>
-                <TextField
-                  id="outlined-multiline-static"
-                  label="Review"
-                  multiline
-                  rows={4}
-                  defaultValue="Enter Review"
-                  variant="outlined"
-                />
-              </form>
-            </Typography>
-          </Paper>
-
-        </div>
-      </MuiThemeProvider>
-    );
-  }
-}
-
-
-Home.propTypes = {
-  classes: PropTypes.object.isRequired
-};
 
 export default withStyles(styles)(Home);
