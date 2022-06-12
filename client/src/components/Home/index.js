@@ -16,7 +16,6 @@ import FormLabel from '@material-ui/core/FormLabel';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
-import Alert from '@material-ui/lab/Alert';
 
 //Dev mode
 const serverURL = "http://ov-research-4.uwaterloo.ca:3029"; //enable for dev mode
