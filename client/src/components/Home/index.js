@@ -149,7 +149,7 @@ const Home = () => {
         <MainGridContainer
           container
           spacing={2}
-          style={{ maxWidth: '50%' }}
+          style={{ maxWidth: '80%' }}
           direction="column"
           justify="flex-start"
           alignItems="stretch"
