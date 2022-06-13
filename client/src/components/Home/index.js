@@ -141,7 +141,7 @@ const Home = () => {
     >
       <Box
         sx={{
-          height: '100vh',
+          height: '120vh',
           opacity: opacityValue,
           overflow: "hidden"
         }}
