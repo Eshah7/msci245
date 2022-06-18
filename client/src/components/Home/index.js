@@ -225,6 +225,7 @@ const Review = () => {
 
             <Box sx={{ m: 4 }} />
 
+            // Display new reviews
             <Grid Item>
               <Typography variant="h4" gutterBottom component="div">
                 Crossover's Movie Reviews
