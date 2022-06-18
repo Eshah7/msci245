@@ -122,6 +122,7 @@ const Review = () => {
     selectedRating: selectedRating,
   })
 
+  // Add Reviews
   const addReviews = () => {
     setSubmissionList(newReview);
 
