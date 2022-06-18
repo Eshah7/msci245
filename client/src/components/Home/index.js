@@ -83,6 +83,7 @@ const Review = () => {
   const [selectedMovie, setSelectMovie] = React.useState('');
   const handleSelectMovieChange = (event) => {
     setSelectMovie(event.target.value);
+    setSubmission(event.target.value = false); 
   };
 
   const [enteredTitle, setEnteredTitle] = React.useState('');
@@ -90,6 +91,7 @@ const Review = () => {
   const handleEnteredTitleChange = (event) => {
     setEnteredTitle(event.target.value);
     setMissingTitle(event.target.value === "");
+    setSubmission(event.target.value = false); 
   };
 
 
@@ -98,6 +100,7 @@ const Review = () => {
   const handleEnteredReviewChange = (event) => {
     setEnteredReview(event.target.value);
     setMissingReview(event.target.value === "");
+    setSubmission(event.target.value = false); 
   };
 
   const [selectedRating, setSelectedRating] = React.useState('');
@@ -105,6 +108,7 @@ const Review = () => {
   const handleSelectedRatingChange = (event) => {
     setSelectedRating(event.target.value);
     setMissingRating(event.target.value === "");
+    setSubmission(event.target.value = false); 
   }
 
   // Handle submissions
