@@ -31,26 +31,7 @@ const fetch = require("node-fetch");
 
 const opacityValue = 0.9;
 
-const lightTheme = createTheme({
-  palette: {
-    type: 'light',
-    background: {
-      default: "#ffffff"
-    },
-    primary: {
-      main: '#ef9a9a',
-      light: '#ffcccb',
-      dark: '#ba6b6c',
-      background: '#eeeeee'
-    },
-    secondary: {
-      main: "#b71c1c",
-      light: '#f05545',
-      dark: '#7f0000'
-    },
-  },
-});
-
+// Create a theme
 const useStyles = makeStyles((theme) => ({
   root: {
     body: {
@@ -59,13 +40,13 @@ const useStyles = makeStyles((theme) => ({
       overflow: "hidden",
     },
     '& > *': {
-      margin: theme.spacing(3),
+      margin: theme.spacing(4),
     },
     '& .MuiTextField-root': {
-      margin: theme.spacing(3),
+      margin: theme.spacing(4),
     },
     '& > * + *': {
-      marginTop: theme.spacing(2),
+      marginTop: theme.spacing(4),
     },
   },
   paper: {
@@ -90,12 +71,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
+// A main grid container
 const MainGridContainer = styled(Grid)(({ theme }) => ({
   margin: theme.spacing(4),
 }))
 
-const Home = () => {
+// Parent Component
+const Review = () => {
   const classes = useStyles();
 
   const [selectedMovie, setSelectMovie] = React.useState('');
@@ -104,35 +86,58 @@ const Home = () => {
   };
 
   const [enteredTitle, setEnteredTitle] = React.useState('');
+  const [missingTitle, setMissingTitle] = React.useState('');
   const handleEnteredTitleChange = (event) => {
     setEnteredTitle(event.target.value);
+    setMissingTitle(event.target.value === "");
   };
 
+
   const [enteredReview, setEnteredReview] = React.useState('');
+  const [missingReview, setMissingReview] = React.useState('');
   const handleEnteredReviewChange = (event) => {
     setEnteredReview(event.target.value);
+    setMissingReview(event.target.value === "");
   };
 
   const [selectedRating, setSelectedRating] = React.useState('');
+  const [missingRating, setMissingRating] = React.useState('');
   const handleSelectedRatingChange = (event) => {
     setSelectedRating(event.target.value);
+    setMissingRating(event.target.value === "");
+  }
+
+  // Handle submissions
+  const [submission, setSubmission] = React.useState();
+  const [submissionList, setSubmissionList] = React.useState([])
+
+  const newReview = submissionList.concat({
+    selectedMovie: selectedMovie,
+    enteredTitle: enteredTitle,
+    enteredReview: enteredReview,
+    selectedRating: selectedRating,
+  })
+
+  const addReviews = () => {
+    setSubmissionList(newReview);
+
+    setSelectMovie("");
+    setEnteredTitle("");
+    setEnteredReview("");
+    setSelectedRating("");
   }
 
   const validationCheck = () => {
-    if (enteredTitle === "") {
-      alert ("Missing: Please Enter a Review Title");   
-    }
+    setMissingTitle(enteredTitle === "");
+    setMissingReview(enteredReview === "");
+    setMissingRating(selectedRating === "");
 
-    else if (enteredReview === "") {
-      alert ("Missing: Please Enter a Review");
-    } 
-
-    else if (selectedRating === "") {
-      alert ("Missing: Please Enter a Rating");
+    if (!(selectedMovie === "") && !(enteredTitle === "") && !(enteredReview === "") && !(selectedRating === "")) {
+      addReviews();
+      setSubmission(true);
     } else {
-      alert("Successful: Your Submission has been Recieved");
+      setSubmission(false); 
     }
-
   }
 
   return (
@@ -141,24 +146,27 @@ const Home = () => {
     >
       <Box
         sx={{
-          height: '120vh',
+          height: "100%",
           opacity: opacityValue,
           overflow: "hidden"
         }}
       >
         <MainGridContainer
           container
-          spacing={2}
-          style={{ maxWidth: '80%' }}
+          style={{ maxWidth: '100%' }}
           direction="column"
           justify="flex-start"
           alignItems="stretch"
         >
-          <Typography variant="h3" gutterBottom component="div">
-            <strong>Crossover: Leave a Movie Review</strong>
-          </Typography>
 
           <Grid>
+            <Grid Item>
+              <Typography variant="h3" gutterBottom component="div">
+              Crossover: Movie Review Collection
+              </Typography>
+            </Grid>
+
+
             <Grid Item>
               <MovieSelection
                 classes={classes.formControl}
@@ -166,13 +174,17 @@ const Home = () => {
                 handleSelectMovieChange={handleSelectMovieChange}
               />
 
+
             </Grid>
             <Box sx={{ m: 2 }} />
+
+
             <Grid Item>
               <ReviewTitle
                 classes={classes.root}
                 enteredTitle={enteredTitle}
                 handleEnteredTitleChange={handleEnteredTitleChange}
+                missingTitle={missingTitle}
               />
 
             </Grid>
@@ -183,7 +195,9 @@ const Home = () => {
                 classes={classes.root}
                 enteredReview={enteredReview}
                 handleEnteredReviewChange={handleEnteredReviewChange}
+                missingReview={missingReview}
               />
+
             </Grid>
             <Box sx={{ m: 2 }} />
 
@@ -191,16 +205,46 @@ const Home = () => {
               <ReviewRating
                 selectedRating={selectedRating}
                 handleSelectedRatingChange={handleSelectedRatingChange}
+                missingRating={missingRating}
               />
+
             </Grid>
             <Box sx={{ m: 2 }} />
 
             <Grid Item>
-              <Button variant="contained" color="primary" onClick = {() => { validationCheck() }}>
+              <Button variant="contained" color="primary" onClick={() => { validationCheck() }}>
                 Submit Review
               </Button>
+
+              {submission && <FormHelperText> <strong><p style={{ color: 'darkgreen' }}>Your review has been submitted!</p></strong> </FormHelperText>}
             </Grid>
 
+            <Box sx={{ m: 4 }} />
+
+            <Grid Item>
+              <Typography variant="h4" gutterBottom component="div">
+                Crossover's Movie Reviews
+              </Typography>
+
+              <ul>
+                {submissionList.map(function (reviewItem) {
+                  return (
+                    <li>
+                      <span><strong>{reviewItem.selectedMovie + " - " + reviewItem.enteredTitle}</strong></span>
+                      <ul>
+                        <li>
+                          <span><strong> {"Review: "} </strong> {reviewItem.enteredReview} </span>
+                          <li>
+                            <span><strong> {"Overall Rating: "} </strong> {reviewItem.selectedRating}</span>
+                          </li>
+                        </li>
+                      </ul>
+
+                    </li>);
+                })}
+              </ul>
+
+            </Grid>
 
           </Grid>
 
@@ -221,11 +265,11 @@ const MovieSelection = (props) => (
         value={props.selectedMovie}
         onChange={props.handleSelectMovieChange}
       >
-        <MenuItem value={1}>American Psycho</MenuItem>
-        <MenuItem value={2}>In the Heights</MenuItem>
-        <MenuItem value={3}>The Handmaiden</MenuItem>
-        <MenuItem value={4}>Blade Runner</MenuItem>
-        <MenuItem value={5}>Titane</MenuItem>
+        <MenuItem value={"American Psycho"}>American Psycho</MenuItem>
+        <MenuItem value={"In the Heights"}>In the Heights</MenuItem>
+        <MenuItem value={"The Handmaiden"}>The Handmaiden</MenuItem>
+        <MenuItem value={"Blade Runner"}>Blade Runner</MenuItem>
+        <MenuItem value={"Titane"}>Titane</MenuItem>
 
       </Select>
 
@@ -245,6 +289,7 @@ const ReviewTitle = (props) => (
         onChange={props.handleEnteredTitleChange} />
     </form>
     <FormHelperText> Give a name to your review so others can find it! </FormHelperText>
+    {props.missingTitle && <FormHelperText> <strong><p style={{ color: 'red' }}>Please enter your review title!</p></strong> </FormHelperText>}
   </div>
 );
 
@@ -263,7 +308,8 @@ const ReviewBody = (props) => (
         inputProps={{ maxLength: 200 }} />
 
     </form>
-    <FormHelperText> Enter your movie review (Ex. Music, Acting, Cinematography) [Max 200 Characters] </FormHelperText>
+    <FormHelperText> Enter your movie review (Ex. Music, Cinematography) [Max 200 Char.] </FormHelperText>
+    {props.missingReview && <FormHelperText> <strong><p style={{ color: 'red' }}>Please enter your review!</p></strong> </FormHelperText>}
   </div>
 );
 
@@ -280,6 +326,7 @@ const ReviewRating = (props) => (
       </RadioGroup>
 
       <FormHelperText> 1 being the worst, and 5 being the best movie you have ever watched! </FormHelperText>
+      {props.missingRating && <FormHelperText> <strong><p style={{ color: 'red' }}>Please select your rating!</p></strong> </FormHelperText>}
     </FormControl>
 
   </div>
@@ -287,6 +334,4 @@ const ReviewRating = (props) => (
 );
 
 
-
-
-export default Home;
+export default Review;
