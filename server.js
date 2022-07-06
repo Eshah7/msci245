@@ -6,6 +6,8 @@ const path = require("path");
 const bodyParser = require("body-parser");
 
 const { response } = require('express');
+
+// App is the object, once you use post, its a POST API!
 const app = express();
 const port = process.env.PORT || 5000;
 app.use(bodyParser.json({ limit: '50mb' }));
@@ -13,7 +15,7 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 app.use(express.static(path.join(__dirname, "client/build")));
 
-
+// The post API
 app.post('/api/loadUserSettings', (req, res) => {
 
 	let connection = mysql.createConnection(config);
