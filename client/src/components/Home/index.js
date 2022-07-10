@@ -18,7 +18,7 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 
 //Dev mode
-const serverURL = "http://ov-research-4.uwaterloo.ca:3029"; //enable for dev mode
+const serverURL = "http://ec2-18-188-101-79.us-east-2.compute.amazonaws.com:3029"; //enable for dev mode
 
 //Deployment mode instructions
 //const serverURL = "http://ov-research-4.uwaterloo.ca:PORT"; //enable for deployed mode; Change PORT to the port number given to you;
@@ -143,6 +143,43 @@ const Review = () => {
     } else {
       setSubmission(false); 
     }
+  }
+
+  const [movies, setMovies] = React.useState([]); 
+
+  React.useEffect(() => {
+    handleGetMovies();
+  }, []);
+
+  const callApiGetMovies = async () => {
+
+    const url = serverURL + "/api/getMovies";
+    console.log(url);
+
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        //authorization: `Bearer ${this.state.token}`
+      },
+      body: JSON.stringify({
+        movies: movies,
+      })
+    });
+    const body = await response.json();
+    if (response.status !== 200) throw Error(body.message);
+    console.log("Movies List: ", body);
+    return body;
+  }
+
+  const handleGetMovies = () => {
+    callApiGetMovies()
+      .then(res => {
+        console.log("callApiGetMovies returned: ", res)
+        var parsed = JSON.parse(res.express);
+        console.log("callApiGEtMovies parsed: ", parsed[0])
+        setMovies(parsed); 
+      });
   }
 
   return (
