@@ -307,11 +307,9 @@ const MovieSelection = (props) => (
 
       >
 
-        <MenuItem value={"American Psycho"}>American Psycho</MenuItem>
-        <MenuItem value={"In the Heights"}>In the Heights</MenuItem>
-        <MenuItem value={30}>The Handmaiden</MenuItem>
-        <MenuItem value={40}>Blade Runner</MenuItem>
-        <MenuItem value={50}>Titane</MenuItem>
+        {props.movies.map((movie) => (
+          <MenuItem value={movie.name}> {movie.name} </MenuItem>
+        ))}
 
       </Select>
 
