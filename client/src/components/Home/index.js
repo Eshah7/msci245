@@ -311,6 +311,8 @@ const MovieSelection = (props) => (
           <MenuItem value={movie.name}> {movie.name} </MenuItem>
         ))}
 
+        <MenuItem value="Test"> "Test" </MenuItem>
+
       </Select>
 
       <FormHelperText> Select a movie to review from the list! </FormHelperText>
