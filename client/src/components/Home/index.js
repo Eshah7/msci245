@@ -211,6 +211,7 @@ const Review = () => {
                 classes={classes.formControl}
                 selectedMovie={selectedMovie}
                 handleSelectMovieChange={handleSelectMovieChange}
+                movies = {movies}
               />
 
 
@@ -304,11 +305,10 @@ const MovieSelection = (props) => (
         value={props.selectedMovie}
         onChange={props.handleSelectMovieChange}
       >
-        <MenuItem value={"American Psycho"}>American Psycho</MenuItem>
-        <MenuItem value={"In the Heights"}>In the Heights</MenuItem>
-        <MenuItem value={"The Handmaiden"}>The Handmaiden</MenuItem>
-        <MenuItem value={"Blade Runner"}>Blade Runner</MenuItem>
-        <MenuItem value={"Titane"}>Titane</MenuItem>
+
+        {props.movies.map((movie) => {
+          <MenuItem value = {movie.name}> {movie.name} </MenuItem>
+        })}
 
       </Select>
 
