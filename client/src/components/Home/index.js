@@ -307,7 +307,7 @@ const MovieSelection = (props) => (
       >
 
         {props.movies.map((movie) => {
-          <MenuItem value = {movie.name}> {movie.name} </MenuItem>
+          <MenuItem value = {movie}> {movie} </MenuItem>
         })}
 
       </Select>
