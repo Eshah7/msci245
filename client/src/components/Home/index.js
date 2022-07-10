@@ -83,7 +83,7 @@ const Review = () => {
   const [selectedMovie, setSelectMovie] = React.useState('');
   const handleSelectMovieChange = (event) => {
     setSelectMovie(event.target.value);
-    setSubmission(event.target.value = false); 
+    setSubmission(event.target.value = false);
   };
 
   const [enteredTitle, setEnteredTitle] = React.useState('');
@@ -91,7 +91,7 @@ const Review = () => {
   const handleEnteredTitleChange = (event) => {
     setEnteredTitle(event.target.value);
     setMissingTitle(event.target.value === "");
-    setSubmission(event.target.value = false); 
+    setSubmission(event.target.value = false);
   };
 
 
@@ -100,7 +100,7 @@ const Review = () => {
   const handleEnteredReviewChange = (event) => {
     setEnteredReview(event.target.value);
     setMissingReview(event.target.value === "");
-    setSubmission(event.target.value = false); 
+    setSubmission(event.target.value = false);
   };
 
   const [selectedRating, setSelectedRating] = React.useState('');
@@ -108,7 +108,7 @@ const Review = () => {
   const handleSelectedRatingChange = (event) => {
     setSelectedRating(event.target.value);
     setMissingRating(event.target.value === "");
-    setSubmission(event.target.value = false); 
+    setSubmission(event.target.value = false);
   }
 
   // Handle submissions
@@ -141,11 +141,11 @@ const Review = () => {
       addReviews();
       setSubmission(true);
     } else {
-      setSubmission(false); 
+      setSubmission(false);
     }
   }
 
-  const [movies, setMovies] = React.useState([]); 
+  const [movies, setMovies] = React.useState([]);
 
   React.useEffect(() => {
     handleGetMovies();
@@ -175,7 +175,7 @@ const Review = () => {
         console.log("callApiGetMovies returned: ", res)
         var parsed = JSON.parse(res.express);
         console.log("callApiGEtMovies parsed: ", parsed)
-        setMovies(parsed); 
+        setMovies(parsed);
       });
   }
 
@@ -201,7 +201,7 @@ const Review = () => {
           <Grid>
             <Grid Item>
               <Typography variant="h3" gutterBottom component="div">
-              Crossover: Movie Review Collection
+                Crossover: Movie Review Collection
               </Typography>
             </Grid>
 
@@ -211,7 +211,7 @@ const Review = () => {
                 classes={classes.formControl}
                 selectedMovie={selectedMovie}
                 handleSelectMovieChange={handleSelectMovieChange}
-                movies = {movies}
+                movies={movies}
               />
 
 
@@ -304,12 +304,14 @@ const MovieSelection = (props) => (
         id="MovieSelect"
         value={props.selectedMovie}
         onChange={props.handleSelectMovieChange}
-        
+
       >
 
-        {props.movies.map((movie) => (
-          <MenuItem value = {movie.name}> {movie.name} </MenuItem>
-        ))}
+        <MenuItem value={"American Psycho"}>American Psycho</MenuItem>
+        <MenuItem value={"In the Heights"}>In the Heights</MenuItem>
+        <MenuItem value={30}>The Handmaiden</MenuItem>
+        <MenuItem value={40}>Blade Runner</MenuItem>
+        <MenuItem value={50}>Titane</MenuItem>
 
       </Select>
 
