@@ -42,19 +42,17 @@ app.post('/api/loadUserSettings', (req, res) => {
 app.post('/api/getMovies', (req, res) => {
 
 	let connection = mysql.createConnection(config);
-	let movies = req.body.movies;
 
 	let sql = `SELECT * FROM e7shah.movies;`;
 	console.log(sql);
-	let data = [movies];
-	console.log(data); 
 
-	connection.query(sql, data, (error, results, fields) => {
+	connection.query(sql, (error, results, fields) => {
 		if (error) {
 			return console.error(error.message);
 		}
 
 		let string = JSON.stringify(results);
+		//let obj = JSON.parse(string);
 		
 		res.send({ express: string });
 	});

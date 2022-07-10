@@ -149,7 +149,7 @@ const Review = () => {
 
   React.useEffect(() => {
     handleGetMovies();
-  }, []);
+  }, [movies]);
 
   const callApiGetMovies = async () => {
 
@@ -162,9 +162,6 @@ const Review = () => {
         "Content-Type": "application/json",
         //authorization: `Bearer ${this.state.token}`
       },
-      body: JSON.stringify({
-        movies: movies,
-      })
     });
     const body = await response.json();
     if (response.status !== 200) throw Error(body.message);
@@ -177,7 +174,7 @@ const Review = () => {
       .then(res => {
         console.log("callApiGetMovies returned: ", res)
         var parsed = JSON.parse(res.express);
-        console.log("callApiGEtMovies parsed: ", parsed[0])
+        console.log("callApiGEtMovies parsed: ", parsed)
         setMovies(parsed); 
       });
   }
