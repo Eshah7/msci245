@@ -306,10 +306,10 @@ const MovieSelection = (props) => (
         onChange={props.handleSelectMovieChange}
         
       >
-        
-        {props.movies.map((movie) => {
-          <Option key = {movie.name}> {movie.name} </Option>
-        })}
+
+        {props.movies.map((movie) => (
+          <MenuItem value = {movie.name}> {movie.name} </MenuItem>
+        ))}
 
       </Select>
 
