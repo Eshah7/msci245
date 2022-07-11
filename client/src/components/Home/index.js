@@ -293,7 +293,7 @@ const Review = () => {
             <Box sx={{ m: 2 }} />
 
             <Grid Item>
-              <Button variant="contained" color="primary" onClick={() => { validationCheck(),  }}>
+              <Button variant="contained" color="primary" onClick={() => { validationCheck() }}>
                 Submit Review
               </Button>
 
