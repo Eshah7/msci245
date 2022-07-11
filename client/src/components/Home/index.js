@@ -141,6 +141,7 @@ const Review = () => {
     if (!(selectedMovie === "") && !(enteredTitle === "") && !(enteredReview === "") && !(selectedRating === "")) {
       addReviews();
       setSubmission(true);
+      handleApiAddReview(); 
     } else {
       setSubmission(false);
     }
@@ -177,7 +178,7 @@ const Review = () => {
         var parsed = JSON.parse(res.express);
         console.log("callApiGetMovies parsed: ", parsed)
         setMovies(parsed);
-      });
+      })
   }
 
   const [userID, setUserID] = React.useState(1);
@@ -214,7 +215,7 @@ const Review = () => {
         console.log("callApiAddReveiw returned: ", res)
         var parsed = JSON.parse(res.express);
         console.log("callApiAddReview parsed: ", parsed)
-      });
+      })
   }
 
 
