@@ -185,39 +185,6 @@ const Review = () => {
 
   const [movieID, setMovieID] = React.useState[[]];
 
-  /*const callAddReview = async () => {
-
-    const url = serverURL + "/api/addReview";
-    console.log(url);
-
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        //authorization: `Bearer ${this.state.token}`
-      },
-      body: JSON.stringify({
-        reviewTitle: enteredTitle,
-        reviewContent: enteredReview,
-        reviewScore: selectedRating
-
-      })
-    });
-    const body = await response.json();
-    if (response.status !== 200) throw Error(body.message);
-    console.log("New Review:", body);
-    return body;
-  }
-
-  const handleAddReview = () => {
-    callAddReview()
-      .then(res => {
-        console.log("callAddReview returned: ", res)
-        var parsed = JSON.parse(res.express);
-        console.log("callAddReview parsed: ", parsed)
-
-      });
-  }*/
 
 
   return (
