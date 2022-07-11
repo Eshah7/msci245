@@ -140,8 +140,7 @@ const Review = () => {
 
     if (!(selectedMovie === "") && !(enteredTitle === "") && !(enteredReview === "") && !(selectedRating === "")) {
       addReviews();
-      setSubmission(true);
-      handleApiAddReview(); 
+      setSubmission(true); 
     } else {
       setSubmission(false);
     }
