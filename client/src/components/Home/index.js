@@ -214,6 +214,7 @@ const Review = () => {
         console.log("callAddReview returned: ", res)
         var parsed = JSON.parse(res.express);
         console.log("callAddReview parsed: ", parsed)
+
       });
   }
 
@@ -292,7 +293,7 @@ const Review = () => {
             <Box sx={{ m: 2 }} />
 
             <Grid Item>
-              <Button variant="contained" color="primary" onClick={() => { handleAddReview() }}>
+              <Button variant="contained" color="primary" onClick={() => { validationCheck(),  }}>
                 Submit Review
               </Button>
 
