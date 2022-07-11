@@ -151,7 +151,7 @@ const Review = () => {
 
   React.useEffect(() => {
     handleGetMovies();
-  }, [movies]);
+  }, []);
 
   const callApiGetMovies = async () => {
 
