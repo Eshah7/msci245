@@ -72,7 +72,7 @@ app.post('/api/addReview', (req, res) => {
 			console.log(error.message); 
 		}
 
-		let obj = JSON.parse(string);
+		let obj = JSON.parse(results);
 
 		res.send({ express: string });
 	});
