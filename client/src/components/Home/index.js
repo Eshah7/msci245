@@ -125,6 +125,7 @@ const Review = () => {
   // Add Reviews
   const addReviews = () => {
     setSubmissionList(newReview);
+    handleApiAddReview(); 
 
     setSelectMovie("");
     setEnteredTitle("");
@@ -174,12 +175,46 @@ const Review = () => {
       .then(res => {
         console.log("callApiGetMovies returned: ", res)
         var parsed = JSON.parse(res.express);
-        console.log("callApiGEtMovies parsed: ", parsed)
+        console.log("callApiGetMovies parsed: ", parsed)
         setMovies(parsed);
       });
   }
 
   const [userID, setUserID] = React.useState(1);
+
+  const callApiAddReview = async () => {
+
+    const url = serverURL + "/api/addReview";
+    console.log(url);
+
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        //authorization: `Bearer ${this.state.token}`
+      },
+      body: JSON.stringify({
+        reviewTitle: enteredTitle,
+        reviewContent: enteredReview,
+        reviewScore: selectedRating
+
+      })
+    });
+    const body = await response.json();
+    if (response.status !== 200) throw Error(body.message);
+    console.log("New Review:", body);
+    return body;
+  }
+
+  const handleApiAddReview = () => {
+    callApiAddReview()
+      .then(res => {
+        console.log("callApiAddReveiw returned: ", res)
+        var parsed = JSON.parse(res.express);
+        console.log("callApiAddReview parsed: ", parsed)
+      });
+  }
+
 
   return (
     <Paper
