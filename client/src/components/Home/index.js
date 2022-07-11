@@ -174,10 +174,49 @@ const Review = () => {
       .then(res => {
         console.log("callApiGetMovies returned: ", res)
         var parsed = JSON.parse(res.express);
-        console.log("callApiGEtMovies parsed: ", parsed)
+        console.log("callApiGetMovies parsed: ", parsed)
         setMovies(parsed);
       });
   }
+
+  // Submit reviews into the mySQL database
+  const [userID, setUserID] = React.useState(1);
+
+  const [movieID, setMovieID] = React.useState[[]];
+
+  const callAddReview = async () => {
+
+    const url = serverURL + "/api/addReview";
+    console.log(url);
+
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        //authorization: `Bearer ${this.state.token}`
+      },
+      body: JSON.stringify({
+        reviewTitle: enteredTitle,
+        reviewContent: enteredReview,
+        reviewScore: selectedRating
+
+      })
+    });
+    const body = await response.json();
+    if (response.status !== 200) throw Error(body.message);
+    console.log("New Review:", body);
+    return body;
+  }
+
+  const handleAddReview = () => {
+    callAddReview()
+      .then(res => {
+        console.log("callAddReview returned: ", res)
+        var parsed = JSON.parse(res.express);
+        console.log("callAddReview parsed: ", parsed)
+      });
+  }
+
 
   return (
     <Paper
@@ -212,6 +251,7 @@ const Review = () => {
                 selectedMovie={selectedMovie}
                 handleSelectMovieChange={handleSelectMovieChange}
                 movies={movies}
+                movieID={movieID}
               />
 
 
@@ -252,7 +292,7 @@ const Review = () => {
             <Box sx={{ m: 2 }} />
 
             <Grid Item>
-              <Button variant="contained" color="primary" onClick={() => { validationCheck() }}>
+              <Button variant="contained" color="primary" onClick={() => { validationCheck(), handleAddReview() }}>
                 Submit Review
               </Button>
 

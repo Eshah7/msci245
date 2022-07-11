@@ -59,6 +59,28 @@ app.post('/api/getMovies', (req, res) => {
 	connection.end();
 });
 
+// API to post the review!
+app.post('/api/addReview', (req, res) => {
+	let connection = mysql.createConnection(config); 
+	let data = []; 
+
+	let insertReviewSQL = 'INSERT INTO e7shah.Review (reviewTitle, reviewContent, reviewScore) VALUES (?, ?, ?)'; 
+	let insertReviewData = [req.body.reviewTitle, req.body.reviewContent, req.body.reviewScore];
+
+	connection.query(insertReviewSQL, insertReviewData, (error, results, fields) => {
+		if (error) {
+			console.log(error.message); 
+		}
+
+		let obj = JSON.parse(string);
+
+		res.send({ express: string });
+	});
+
+	connection.end();
+
+});
+
 
 
 app.listen(port, () => console.log(`Listening on port ${port}`)); //for the dev version
