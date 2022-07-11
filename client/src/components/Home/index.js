@@ -185,7 +185,7 @@ const Review = () => {
 
   const [movieID, setMovieID] = React.useState[[]];
 
-  const callAddReview = async () => {
+  /*const callAddReview = async () => {
 
     const url = serverURL + "/api/addReview";
     console.log(url);
@@ -217,7 +217,7 @@ const Review = () => {
         console.log("callAddReview parsed: ", parsed)
 
       });
-  }
+  }*/
 
 
   return (
