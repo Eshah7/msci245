@@ -188,7 +188,7 @@ const Review = () => {
   }
 
   const [userID, setUserID] = React.useState(1);
-  const [movieID, setMovieID] = React.useState(''); 
+  const [movieID, setMovieID] = React.useState(0); 
 
   const callApiAddReview = async () => {
 
@@ -206,7 +206,7 @@ const Review = () => {
         reviewContent: enteredReview,
         reviewScore: selectedRating,
         userID: userID, 
-        movieID: 969
+        movieID: movieID
 
       })
     });
