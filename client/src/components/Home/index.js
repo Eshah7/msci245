@@ -139,7 +139,7 @@ const Review = () => {
 
     if (!(selectedMovie === "") && !(enteredTitle === "") && !(enteredReview === "") && !(selectedRating === "")) {
       addReviews();
-      handleAddReview();
+      // handleAddReview();
       setSubmission(true);
     } else {
       setSubmission(false);
