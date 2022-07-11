@@ -206,7 +206,7 @@ const Review = () => {
         reviewContent: enteredReview,
         reviewScore: selectedRating,
         userID: userID, 
-        movieID: movieID
+        movieID: 969
 
       })
     });
