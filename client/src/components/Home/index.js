@@ -83,6 +83,13 @@ const Review = () => {
   const [selectedMovie, setSelectMovie] = React.useState('');
   const handleSelectMovieChange = (event) => {
     setSelectMovie(event.target.value);
+
+    movies.map((movie) => {
+      if (movie.name === selectedMovie) {
+        setMovieID(movie.id); 
+      };
+    }); 
+
     setSubmission(event.target.value = false);
   };
 
@@ -181,6 +188,7 @@ const Review = () => {
   }
 
   const [userID, setUserID] = React.useState(1);
+  const [movieID, setMovieID] = React.useState(''); 
 
   const callApiAddReview = async () => {
 
@@ -198,7 +206,7 @@ const Review = () => {
         reviewContent: enteredReview,
         reviewScore: selectedRating,
         userID: userID, 
-        movieID: 969
+        movieID: movieID
 
       })
     });
