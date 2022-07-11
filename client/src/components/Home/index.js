@@ -139,7 +139,6 @@ const Review = () => {
 
     if (!(selectedMovie === "") && !(enteredTitle === "") && !(enteredReview === "") && !(selectedRating === "")) {
       addReviews();
-      // handleAddReview();
       setSubmission(true);
     } else {
       setSubmission(false);
@@ -175,17 +174,12 @@ const Review = () => {
       .then(res => {
         console.log("callApiGetMovies returned: ", res)
         var parsed = JSON.parse(res.express);
-        console.log("callApiGetMovies parsed: ", parsed)
+        console.log("callApiGEtMovies parsed: ", parsed)
         setMovies(parsed);
       });
   }
 
-  // Submit reviews into the mySQL database
   const [userID, setUserID] = React.useState(1);
-
-  const [movieID, setMovieID] = React.useState[[]];
-
-
 
   return (
     <Paper
@@ -220,7 +214,6 @@ const Review = () => {
                 selectedMovie={selectedMovie}
                 handleSelectMovieChange={handleSelectMovieChange}
                 movies={movies}
-                movieID={movieID}
               />
 
 
