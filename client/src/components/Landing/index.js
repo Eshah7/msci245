@@ -2,7 +2,9 @@ import React from 'react';
 import Typography from "@material-ui/core/Typography";
 import Link from '@material-ui/core/Link';
 import history from '../Navigation/history';
+
 const Landing = () => {
+
     return (
         <div>
             <Typography variant="h3" color="inherit" noWrap>
@@ -17,6 +19,7 @@ const Landing = () => {
                     Navigate to Home Page
                 </Typography>
             </Link>
+
             <Link
                 color="inherit"
                 style={{ cursor: "pointer" }}
@@ -26,8 +29,10 @@ const Landing = () => {
                     Navigate to SignIn Page
                 </Typography>
             </Link>
+
         </div>
     )
-}
-export default Landing;
 
+}
+
+export default Landing;
