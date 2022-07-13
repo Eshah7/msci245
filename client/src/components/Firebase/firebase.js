@@ -1,9 +1,11 @@
 import app from 'firebase/app';
 import 'firebase/auth';
 
+
 const firebaseConfig = {
-  //Enter your firebase API details
-  };
+// Paste the firebaseConfig here 
+};
+
 class Firebase {
   constructor() {
     app.initializeApp(firebaseConfig);
