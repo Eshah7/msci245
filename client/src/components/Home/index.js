@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   paper: {
-    color: 'darkslategray',
+    color: 'black',
     backgroundColor: 'aliceblue',
     padding: 8,
     borderRadius: 4,
@@ -83,7 +83,7 @@ const Review = () => {
   const [selectedMovie, setSelectMovie] = React.useState('');
   const handleSelectMovieChange = (event) => {
     setSelectMovie(event.target.value);
-    setSubmission(event.target.value = false); 
+    setSubmission(event.target.value = false);
   };
 
   const [enteredTitle, setEnteredTitle] = React.useState('');
@@ -91,7 +91,7 @@ const Review = () => {
   const handleEnteredTitleChange = (event) => {
     setEnteredTitle(event.target.value);
     setMissingTitle(event.target.value === "");
-    setSubmission(event.target.value = false); 
+    setSubmission(event.target.value = false);
   };
 
 
@@ -100,7 +100,7 @@ const Review = () => {
   const handleEnteredReviewChange = (event) => {
     setEnteredReview(event.target.value);
     setMissingReview(event.target.value === "");
-    setSubmission(event.target.value = false); 
+    setSubmission(event.target.value = false);
   };
 
   const [selectedRating, setSelectedRating] = React.useState('');
@@ -108,7 +108,7 @@ const Review = () => {
   const handleSelectedRatingChange = (event) => {
     setSelectedRating(event.target.value);
     setMissingRating(event.target.value === "");
-    setSubmission(event.target.value = false); 
+    setSubmission(event.target.value = false);
   }
 
   // Handle submissions
@@ -141,9 +141,81 @@ const Review = () => {
       addReviews();
       setSubmission(true);
     } else {
-      setSubmission(false); 
+      setSubmission(false);
     }
   }
+
+  const slayers = [
+    {
+      name: 'Esha',
+      result: 'Negative (x2)',
+      symptoms: 'None!'
+    }, {
+      name: 'Safwaan',
+      result: 'Negative',
+      symptoms: 'None!'
+    }, {
+      name: 'Neel',
+      result: 'Negative',
+      symptoms: 'None!'
+    },{
+      name: "Neel's Roommates Except Owen",
+      result: 'Negative',
+      symptoms: 'None!'
+    },{
+      name: 'Nikki',
+      result: 'Negative',
+      symptoms: 'None!'
+    },{
+      name: 'Alex',
+      result: 'Negative',
+      symptoms: 'None!'
+    },{
+      name: 'Jas',
+      result: 'Negative',
+      symptoms: 'None!'
+    },
+    {
+      name: 'Edward',
+      result: 'Negative',
+      symptoms: 'None!'
+    },
+    {
+      name: 'Diane',
+      result: 'Negative',
+      symptoms: 'None!'
+    },
+    {
+      name: "Owen (MGMT, NOT NEEL'S ROOMMATE)",
+      result: 'Negative',
+      symptoms: 'None!'
+    },  {
+      name: "Hita",
+      result: 'Negative',
+      symptoms: 'None!'
+    },
+    {
+      name: "Lauren",
+      result: 'Negative',
+      symptoms: 'None!'
+    },
+    {
+      name: "Lucy",
+      result: 'Negative',
+      symptoms: 'None!'
+    },
+    {
+      name: "Nick",
+      result: 'Negative',
+      symptoms: 'None!'
+    },
+    {
+      name: "Ali",
+      result: 'Negative',
+      symptoms: 'None!'
+    },
+  ];
+
 
   return (
     <Paper
@@ -167,96 +239,35 @@ const Review = () => {
           <Grid>
             <Grid Item>
               <Typography variant="h3" gutterBottom component="div">
-              Crossover: Movie Review Collection
+                Crossover: Covid Charts
               </Typography>
             </Grid>
-
-
-            <Grid Item>
-              <MovieSelection
-                classes={classes.formControl}
-                selectedMovie={selectedMovie}
-                handleSelectMovieChange={handleSelectMovieChange}
-              />
-
-
-            </Grid>
-            <Box sx={{ m: 2 }} />
-
-
-            <Grid Item>
-              <ReviewTitle
-                classes={classes.root}
-                enteredTitle={enteredTitle}
-                handleEnteredTitleChange={handleEnteredTitleChange}
-                missingTitle={missingTitle}
-              />
-
-            </Grid>
-            <Box sx={{ m: 2 }} />
-
-            <Grid Item>
-              <ReviewBody
-                classes={classes.root}
-                enteredReview={enteredReview}
-                handleEnteredReviewChange={handleEnteredReviewChange}
-                missingReview={missingReview}
-              />
-
-            </Grid>
-            <Box sx={{ m: 2 }} />
-
-            <Grid Item>
-              <ReviewRating
-                selectedRating={selectedRating}
-                handleSelectedRatingChange={handleSelectedRatingChange}
-                missingRating={missingRating}
-              />
-
-            </Grid>
-            <Box sx={{ m: 2 }} />
-
-            <Grid Item>
-              <Button variant="contained" color="primary" onClick={() => { validationCheck() }}>
-                Submit Review
-              </Button>
-
-              {submission && <FormHelperText> <strong><p style={{ color: 'darkgreen' }}>Your review has been submitted!</p></strong> </FormHelperText>}
-            </Grid>
-
-            <Box sx={{ m: 4 }} />
-
-            <Grid Item>
-              <Typography variant="h4" gutterBottom component="div">
-                Crossover's Movie Reviews
-              </Typography>
-
-              <ul>
-                {submissionList.map(function (reviewItem) {
-                  return (
-                    <li>
-                      <span><strong>{reviewItem.selectedMovie + " - " + reviewItem.enteredTitle}</strong></span>
-                      <ul>
+            <ul>
+              {slayers.map(function (slay) {
+                return (
+                  <li>
+                    <span><strong>{"Name: " + slay.name}</strong></span>
+                    <ul>
+                      <li>
+                        <span><strong> {"Result: "} </strong> {slay.result} </span>
                         <li>
-                          <span><strong> {"Review: "} </strong> {reviewItem.enteredReview} </span>
-                          <li>
-                            <span><strong> {"Overall Rating: "} </strong> {reviewItem.selectedRating}</span>
-                          </li>
+                          <span><strong> {"Symptoms: "} </strong> {slay.symptoms}</span>
                         </li>
-                      </ul>
+                      </li>
+                    </ul>
 
-                    </li>);
-                })}
-              </ul>
+                    <Box sx={{ m: 2 }} />
 
-            </Grid>
+                  </li>);
+              })}
+            </ul>
 
           </Grid>
 
-        </MainGridContainer>
+      </MainGridContainer>
 
-      </Box>
-    </Paper>
+    </Box>
+    </Paper >
   );
 }
 
