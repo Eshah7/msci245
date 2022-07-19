@@ -60,7 +60,7 @@ const MainGridContainer = styled(Grid)(({ theme }) => ({
     margin: theme.spacing(4),
 }))
 
-const Landing = () => {
+const MyPage = () => {
     const classes = useStyles();
 
     return (
@@ -71,7 +71,7 @@ const Landing = () => {
             <Appbar />
             <Box
                 sx={{
-                    height: "600px",
+                    height: "100%",
                     opacity: opacityValue,
                     overflow: "hidden"
                 }}
@@ -80,18 +80,16 @@ const Landing = () => {
                     container
                     style={{ maxWidth: '100%' }}
                     direction="column"
-                    justify="center"
-                    alignItems="center"
+                    justify="flex-start"
+                    alignItems="stretch"
                 >
 
+                    
 
                     <Box sx={{ m: 2 }} />
 
-                    <Grid Item>
 
-                        <Typography variant="h2" color="darkslatedgrey" noWrap>
-                            <strong> Crossover Watched: Movie and Show Reviews </strong>
-                        </Typography>
+                    <Grid Item>
 
                     </Grid>
 
@@ -157,4 +155,4 @@ const Appbar = (props) => (
     </div>
 )
 
-export default Landing;
+export default MyPage;

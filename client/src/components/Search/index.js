@@ -12,6 +12,11 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import AdbIcon from "@mui/icons-material/Adb";
 import history from '../Navigation/history';
+import TextField from '@material-ui/core/TextField';
+import SearchIcon from '@material-ui/icons/Search';
+import IconButton from "@material-ui/core/IconButton";
+import InputAdornment from '@material-ui/core/InputAdornment';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 const opacityValue = 0.9;
 
@@ -60,8 +65,26 @@ const MainGridContainer = styled(Grid)(({ theme }) => ({
     margin: theme.spacing(4),
 }))
 
-const Landing = () => {
+const Search = () => {
     const classes = useStyles();
+
+    const [movieTitle, setMovieTitle] = React.useState('');
+
+    const handleMovieTitleChange = (event) => {
+        setMovieTitle(event.target.value);
+    }
+
+    const [actorName, setActorName] = React.useState('');
+
+    const handleActorNameChange = (event) => {
+        setMovieTitle(event.target.value);
+    }
+
+    const [directorName, setDirectorName] = React.useState('');
+
+    const handleDirectorNameChange = (event) => {
+        setMovieTitle(event.target.value);
+    }
 
     return (
 
@@ -71,7 +94,7 @@ const Landing = () => {
             <Appbar />
             <Box
                 sx={{
-                    height: "600px",
+                    height: "100%",
                     opacity: opacityValue,
                     overflow: "hidden"
                 }}
@@ -80,18 +103,42 @@ const Landing = () => {
                     container
                     style={{ maxWidth: '100%' }}
                     direction="column"
-                    justify="center"
-                    alignItems="center"
+                    justify="flex-start"
+                    alignItems="stretch"
                 >
+
 
 
                     <Box sx={{ m: 2 }} />
 
                     <Grid Item>
-
-                        <Typography variant="h2" color="darkslatedgrey" noWrap>
-                            <strong> Crossover Watched: Movie and Show Reviews </strong>
+                        <Typography variant="h3" gutterBottom component="div">
+                            Search for Movies
                         </Typography>
+                    </Grid>
+                    <Box sx={{ m: 2 }} />
+
+                    <Grid Item>
+
+                        <SearchBar
+                            label="Movie Title"
+                            onSearch={setMovieTitle}
+                            onChange={handleMovieTitleChange}
+
+                        />
+                        <FormHelperText> Enter a movie name to find from the list! </FormHelperText>
+
+                    </Grid>
+
+                    <Grid Item>
+
+                        <SearchBar
+                            label="Movie Title"
+                            onSearch={setMovieTitle}
+                            onChange={handleMovieTitleChange}
+
+                        />
+                        <FormHelperText> Enter a movie name to find from the list! </FormHelperText>
 
                     </Grid>
 
@@ -105,7 +152,7 @@ const Landing = () => {
 }
 
 
-const Appbar = (props) => (
+const Appbar = () => (
     <div>
         <AppBar position="static">
             <Container maxWidth="xl">
@@ -157,4 +204,24 @@ const Appbar = (props) => (
     </div>
 )
 
-export default Landing;
+const SearchBar = (props) => (
+
+
+    <div>
+        <TextField
+            id="search"
+            label={props.label}
+            value={props.searchTerm}
+            onChange={props.onChange}
+            variant="outlined"
+            autoComplete="off"
+            color="primary"
+        />
+
+    </div>
+
+)
+
+
+
+export default Search;

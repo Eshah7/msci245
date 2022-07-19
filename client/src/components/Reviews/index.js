@@ -16,11 +16,15 @@ import FormLabel from '@material-ui/core/FormLabel';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
+import history from '../Navigation/history';
+import AppBar from "@mui/material/AppBar";
+import AdbIcon from "@mui/icons-material/Adb";
+import Toolbar from "@mui/material/Toolbar";
+import Container from "@mui/material/Container";
 
 //Dev mode
-//const serverURL = "http://ec2-18-216-101-119.us-east-2.compute.amazonaws.com:3029"; //enable for dev mode
-const serverURL = ""
-
+// const serverURL = "http://ec2-18-216-101-119.us-east-2.compute.amazonaws.com:3029"; //enable for dev mode
+const serverURL = "";
 //Deployment mode instructions
 //const serverURL = "http://ov-research-4.uwaterloo.ca:PORT"; //enable for deployed mode; Change PORT to the port number given to you;
 //To find your port number: 
@@ -87,9 +91,9 @@ const Review = () => {
 
     movies.map((movie) => {
       if (movie.name === event.target.value) {
-        setMovieID(movie.id); 
+        setMovieID(movie.id);
       };
-    }); 
+    });
 
     setSubmission(event.target.value = false);
   };
@@ -133,7 +137,7 @@ const Review = () => {
   // Add Reviews
   const addReviews = () => {
     setSubmissionList(newReview);
-    handleApiAddReview(); 
+    handleApiAddReview();
 
     setSelectMovie("");
     setEnteredTitle("");
@@ -148,7 +152,7 @@ const Review = () => {
 
     if (!(selectedMovie === "") && !(enteredTitle === "") && !(enteredReview === "") && !(selectedRating === "")) {
       addReviews();
-      setSubmission(true); 
+      setSubmission(true);
     } else {
       setSubmission(false);
     }
@@ -189,7 +193,7 @@ const Review = () => {
   }
 
   const [userID, setUserID] = React.useState(1);
-  const [movieID, setMovieID] = React.useState(0); 
+  const [movieID, setMovieID] = React.useState(0);
 
   const callApiAddReview = async () => {
 
@@ -206,7 +210,7 @@ const Review = () => {
         reviewTitle: enteredTitle,
         reviewContent: enteredReview,
         reviewScore: selectedRating,
-        userID: userID, 
+        userID: userID,
         movieID: movieID
 
       })
@@ -231,6 +235,8 @@ const Review = () => {
     <Paper
       className={classes.paper}
     >
+      <Appbar/>
+
       <Box
         sx={{
           height: "100%",
@@ -332,6 +338,7 @@ const Review = () => {
                 })}
               </ul>
 
+
             </Grid>
 
           </Grid>
@@ -420,6 +427,58 @@ const ReviewRating = (props) => (
   </div>
 
 );
+
+const Appbar = () => (
+  <div>
+    <AppBar position="static">
+            <Container maxWidth="xl">
+                <Toolbar disableGutters>
+                    <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+                    <Typography
+                        variant="h6"
+                        noWrap
+                        component="a"
+                        href="/"
+                        sx={{
+                            mr: 2,
+                            display: { xs: "none", md: "flex" },
+                            fontFamily: "monospace",
+                            fontWeight: 700,
+                            letterSpacing: ".3rem",
+                            color: "aliceblue",
+                            textDecoration: "none"
+                        }}
+                    >
+                        CROSSOVER WATCHED
+                    </Typography>
+                    <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+                        <Button
+                            onClick={() => history.push('/search')}
+                            sx={{ my: 2, color: "white", display: "block" }}
+                            style={{ cursor: "pointer" }}
+                        >
+                            Search
+                        </Button>
+                        <Button
+                            onClick={() => history.push('/reviews')}
+                            sx={{ my: 2, color: "white", display: "block" }}
+                            style={{ cursor: "pointer" }}
+                        >
+                            Reviews
+                        </Button>
+                        <Button
+                            onClick={() => history.push('/myPage')}
+                            sx={{ my: 2, color: "white", display: "block" }}
+                            style={{ cursor: "pointer" }}
+                        >
+                            My Page
+                        </Button>
+                    </Box>
+                </Toolbar>
+            </Container>
+        </AppBar>
+  </div>
+)
 
 
 export default Review;
