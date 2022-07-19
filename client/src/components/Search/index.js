@@ -13,9 +13,6 @@ import Button from "@mui/material/Button";
 import AdbIcon from "@mui/icons-material/Adb";
 import history from '../Navigation/history';
 import TextField from '@material-ui/core/TextField';
-import SearchIcon from '@material-ui/icons/Search';
-import IconButton from "@material-ui/core/IconButton";
-import InputAdornment from '@material-ui/core/InputAdornment';
 import FormHelperText from '@material-ui/core/FormHelperText';
 
 const opacityValue = 0.9;
@@ -77,13 +74,13 @@ const Search = () => {
     const [actorName, setActorName] = React.useState('');
 
     const handleActorNameChange = (event) => {
-        setMovieTitle(event.target.value);
+        setActorName(event.target.value);
     }
 
     const [directorName, setDirectorName] = React.useState('');
 
     const handleDirectorNameChange = (event) => {
-        setMovieTitle(event.target.value);
+        setDirectorName(event.target.value);
     }
 
     return (
@@ -107,8 +104,6 @@ const Search = () => {
                     alignItems="stretch"
                 >
 
-
-
                     <Box sx={{ m: 2 }} />
 
                     <Grid Item>
@@ -129,19 +124,36 @@ const Search = () => {
                         <FormHelperText> Enter a movie name to find from the list! </FormHelperText>
 
                     </Grid>
-
+                    <Box sx={{ m: 2 }} />
                     <Grid Item>
 
                         <SearchBar
-                            label="Movie Title"
-                            onSearch={setMovieTitle}
-                            onChange={handleMovieTitleChange}
+                            label="Actor Full Name"
+                            onSearch={setActorName}
+                            onChange={handleActorNameChange}
 
                         />
-                        <FormHelperText> Enter a movie name to find from the list! </FormHelperText>
+                        <FormHelperText> Enter the Actor's first name + last name (Ex. Esha Shah) </FormHelperText>
 
                     </Grid>
+                    <Box sx={{ m: 2 }} />
+                    <Grid Item>
 
+                        <SearchBar
+                            label="Director Full Name"
+                            onSearch={setDirectorName}
+                            onChange={handleDirectorNameChange}
+
+                        />
+                        <FormHelperText> Enter the Director's first name + last name (Ex. Esha Shah) </FormHelperText>
+
+                    </Grid>
+                    <Box sx={{ m: 2 }} />
+                    <Grid Item>
+                        <Button variant="contained" color="primary">
+                            Search for Movies
+                        </Button>
+                    </Grid>
 
                 </MainGridContainer>
 
