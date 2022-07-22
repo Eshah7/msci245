@@ -15,6 +15,7 @@ import history from '../Navigation/history';
 import TextField from '@material-ui/core/TextField';
 import FormHelperText from '@material-ui/core/FormHelperText';
 
+const serverURL = "";
 const opacityValue = 0.9;
 
 // Create a theme
@@ -81,6 +82,42 @@ const Search = () => {
 
     const handleDirectorNameChange = (event) => {
         setDirectorName(event.target.value);
+    }
+
+    // Return Movies
+    const [movies, setMovies] = React.useState([]);
+
+    const callApiSearchMovie = async () => {
+
+        const url = serverURL + "/api/searchMovie";
+        console.log(url);
+
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                //authorization: `Bearer ${this.state.token}`
+            },
+            body: JSON.stringify({
+                title: movieTitle,
+                actor: actorName,
+                director: directorName
+            })
+        });
+        const body = await response.json();
+        if (response.status !== 200) throw Error(body.message);
+        console.log("New Search", body);
+        return body;
+    }
+
+    const handleApiSearchMovie = () => {
+        callApiSearchMovie()
+            .then(res => {
+                console.log("callApiSearchMovie returned: ", res)
+                var parsed = JSON.parse(res.express);
+                console.log("callApiSearchMovie parsed: ", parsed)
+                setMovies(parsed);
+            })
     }
 
     return (
@@ -150,10 +187,77 @@ const Search = () => {
                     </Grid>
                     <Box sx={{ m: 2 }} />
                     <Grid Item>
-                        <Button variant="contained" color="primary">
+                        <Button variant="contained" color="primary" onClick={() => { handleApiSearchMovie() }}>
                             Search for Movies
                         </Button>
                     </Grid>
+
+                    <Box sx={{ m: 2 }} />
+
+                    <Grid Item>
+                        <Typography variant="h4" gutterBottom component="div">
+                            Search Results
+                        </Typography>
+
+                        <ul>
+                            {movies.map(function (movie) {
+
+                                let reviewsList = [];
+                                let review = movie.review
+
+                                if (review !== null) {
+                                    reviewsList = review.split(",");
+                                };
+
+                                return (
+
+                                    <li>
+                                        <span> <strong> {"Movie Name: "} </strong> {movie.name} </span>
+                                        <li>
+
+                                            <span> <strong> {"Director Name: "} </strong> {movie.directorFullName + " "} </span>
+                                            <li>
+                                                <span> <strong> {"Average Rating: "} </strong> {movie.avgRating} </span>
+                                                <li> <span> <strong> {"Reviews: "} </strong></span> </li>
+
+                                            </li>
+                                        </li>
+
+                                        {reviewsList.map(function (review) {
+                                            let reviewPart = review.split(":");
+
+                                            return (
+
+
+                                                <ul>
+                                                    <li>
+                                                        <span><strong> {"Review Title: "} </strong> {reviewPart[0]} </span>
+                                                        <ul> <li> <span><strong> {"Review: "} </strong> {reviewPart[1]}</span> </li> <br></br></ul>
+
+                                                    </li>
+
+                                                </ul>
+
+
+
+                                            )
+
+                                        })}
+
+
+
+                                    </li>
+
+                                );
+
+
+
+                            })}
+
+                        </ul>
+
+                    </Grid>
+
 
                 </MainGridContainer>
 
@@ -164,7 +268,7 @@ const Search = () => {
 }
 
 
-const Appbar = () => (
+const Appbar = (props) => (
     <div>
         <AppBar position="static">
             <Container maxWidth="xl">

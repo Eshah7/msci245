@@ -12,6 +12,8 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import AdbIcon from "@mui/icons-material/Adb";
 import history from '../Navigation/history';
+import TextField from '@material-ui/core/TextField';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 const opacityValue = 0.9;
 
@@ -63,6 +65,14 @@ const MainGridContainer = styled(Grid)(({ theme }) => ({
 const MyPage = () => {
     const classes = useStyles();
 
+    const [movieTitle, setMovieTitle] = React.useState('');
+
+    const handleMovieTitleChange = (event) => {
+        setMovieTitle(event.target.value);
+    }
+
+    const [youtubeID, setYoutubeID] = React.useState("");
+
     return (
 
         <Paper
@@ -84,13 +94,42 @@ const MyPage = () => {
                     alignItems="stretch"
                 >
 
-                    
-
-                    <Box sx={{ m: 2 }} />
-
 
                     <Grid Item>
 
+                        <Typography variant="h3" gutterBottom component="div">
+                            Movie Trailers
+                        </Typography>
+
+                    </Grid>
+
+                    <Box sx={{ m: 1 }} />
+
+                    <Grid Item>
+
+                        <SearchBar
+                            label="Movie Title"
+                            onSearch={setMovieTitle}
+                            onChange={handleMovieTitleChange}
+
+                        />
+                        <FormHelperText> Enter a movie name to watch its trailer! (Ex. 12 Angry Men) </FormHelperText>
+
+                    </Grid>
+
+                   
+
+                    <Box sx={{ m: 2 }} />
+                    <Grid Item>
+                        <Button variant="contained" color="primary">
+                            Search Trailers
+                        </Button>
+                    </Grid>
+
+                    <Box sx={{ m: 3 }} />
+
+                    <Grid Item>
+                        <YoutubeVideo embedId="oR_e9y-bka0" />
                     </Grid>
 
 
@@ -153,6 +192,38 @@ const Appbar = (props) => (
             </Container>
         </AppBar>
     </div>
+)
+
+const YoutubeVideo = (props) => (
+    <div className="video-responsive">
+        <iframe
+            width="853"
+            height="480"
+            src={`https://www.youtube.com/embed/${props.embedId}`}
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            title="Embedded youtube"
+        />
+    </div>
+)
+
+const SearchBar = (props) => (
+
+
+    <div>
+        <TextField
+            id="search"
+            label={props.label}
+            value={props.searchTerm}
+            onChange={props.onChange}
+            variant="outlined"
+            autoComplete="off"
+            color="primary"
+        />
+
+    </div>
+
 )
 
 export default MyPage;

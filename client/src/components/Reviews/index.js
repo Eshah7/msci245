@@ -428,7 +428,7 @@ const ReviewRating = (props) => (
 
 );
 
-const Appbar = () => (
+const Appbar = (props) => (
   <div>
     <AppBar position="static">
             <Container maxWidth="xl">
