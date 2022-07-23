@@ -243,7 +243,7 @@ const Appbar = (props) => (
                             sx={{ my: 2, color: "white", display: "block" }}
                             style={{ cursor: "pointer" }}
                         >
-                            My Page
+                            Movie
                         </Button>
                     </Box>
                 </Toolbar>
@@ -263,6 +263,8 @@ const MovieInfo = (props) => (
 )
 
 const YoutubeVideo = (props) => (
+    <div> 
+    <Container> 
     <div className="video-responsive">
         <iframe
             width="853"
@@ -273,6 +275,8 @@ const YoutubeVideo = (props) => (
             allowFullScreen
             title="Embedded youtube"
         />
+    </div>
+    </Container>
     </div>
 )
 

@@ -13,7 +13,7 @@ import Button from "@mui/material/Button";
 import AdbIcon from "@mui/icons-material/Adb";
 import history from '../Navigation/history';
 
-const opacityValue = 0.9;
+const opacityValue = 1;
 
 // Create a theme
 const useStyles = makeStyles((theme) => ({
@@ -95,12 +95,20 @@ const Landing = () => {
 
                     </Grid>
 
+
+                    <Grid Item>
+                        <Typography variant="h4" color="royalblue" noWrap>
+                            Dive into the World of Movies!
+                        </Typography>
+
+                    </Grid>
+
                     <Box sx={{ m: 2 }} />
 
                     <Grid Item>
 
                         <YoutubeVideo
-                            YoutubeID= "vbH4Lk5wYWg"
+                            YoutubeID="vbH4Lk5wYWg"
                         > </YoutubeVideo>
 
                     </Grid>
@@ -158,7 +166,7 @@ const Appbar = (props) => (
                             sx={{ my: 2, color: "white", display: "block" }}
                             style={{ cursor: "pointer" }}
                         >
-                            My Page
+                            Movie Trailers
                         </Button>
                     </Box>
                 </Toolbar>
@@ -168,16 +176,20 @@ const Appbar = (props) => (
 )
 
 const YoutubeVideo = (props) => (
-    <div className="video-responsive">
-        <iframe
-            width="853"
-            height="480"
-            src={`https://www.youtube.com/embed/${props.YoutubeID}`}
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            title="Embedded youtube"
-        />
+    <div>
+        <Container>
+            <div className="video-responsive">
+                <iframe
+                    width="853"
+                    height="480"
+                    src={`https://www.youtube.com/embed/${props.YoutubeID}`}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    title="Embedded youtube"
+                />
+            </div>
+        </Container>
     </div>
 )
 
