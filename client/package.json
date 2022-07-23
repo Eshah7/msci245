@@ -13,7 +13,7 @@
     "mathjs": "^5.10.3",
     "node-fetch": "^2.6.1",
     "prop-types": "^15.7.2",
-    "react": "^16.8.6",
+    "react": "^16.14.0",
     "react-dom": "^16.8.6",
     "react-gsap": "^1.2.0",
     "react-hot-loader": "^4.12.19",
@@ -21,9 +21,11 @@
     "react-router-dom": "^5.0.1",
     "react-scripts": "^3.4.0",
     "react-with-firebase-auth": "^1.0.3",
+    "react-youtube": "^9.0.3",
     "recompose": "^0.30.0",
     "typeface-roboto": "^0.0.54",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "youtube": "^0.1.0"
   },
   "scripts": {
     "start": "react-scripts start",

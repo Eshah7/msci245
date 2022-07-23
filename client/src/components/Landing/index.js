@@ -71,7 +71,7 @@ const Landing = () => {
             <Appbar />
             <Box
                 sx={{
-                    height: "600px",
+                    height: "100%",
                     opacity: opacityValue,
                     overflow: "hidden"
                 }}
@@ -92,6 +92,16 @@ const Landing = () => {
                         <Typography variant="h2" color="darkslatedgrey" noWrap>
                             <strong> Crossover Watched: Movie and Show Reviews </strong>
                         </Typography>
+
+                    </Grid>
+
+                    <Box sx={{ m: 2 }} />
+
+                    <Grid Item>
+
+                        <YoutubeVideo
+                            YoutubeID= "vbH4Lk5wYWg"
+                        > </YoutubeVideo>
 
                     </Grid>
 
@@ -154,6 +164,20 @@ const Appbar = (props) => (
                 </Toolbar>
             </Container>
         </AppBar>
+    </div>
+)
+
+const YoutubeVideo = (props) => (
+    <div className="video-responsive">
+        <iframe
+            width="853"
+            height="480"
+            src={`https://www.youtube.com/embed/${props.YoutubeID}`}
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            title="Embedded youtube"
+        />
     </div>
 )
 

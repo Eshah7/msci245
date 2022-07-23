@@ -14,6 +14,7 @@ import AdbIcon from "@mui/icons-material/Adb";
 import history from '../Navigation/history';
 import TextField from '@material-ui/core/TextField';
 import FormHelperText from '@material-ui/core/FormHelperText';
+import YouTube from 'react-youtube';
 
 const serverURL = "";
 const opacityValue = 0.9;
@@ -73,6 +74,10 @@ const MyPage = () => {
     }
 
     const [video, setVideo] = React.useState([]);
+
+    React.useEffect(() => {
+        handleApiGetMovieTrailers();
+    }, []);
 
     const callApiGetMovieTrailers = async () => {
 
@@ -171,11 +176,11 @@ const MyPage = () => {
 
                     <Grid Item>
 
-                      {Object.keys(video).length !== 0 &&  <MovieInfo
-                            name={video.name}
-                            YoutubeID={video.YoutubeID} >
-
-                        </MovieInfo>} 
+                        {Object.keys(video).length !== 0 && <MovieInfo
+                            name = {video.name}
+                            YoutubeID={video.YoutubeID}
+                        > </MovieInfo>
+                        }
 
                     </Grid>
 
