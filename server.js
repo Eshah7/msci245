@@ -161,11 +161,11 @@ app.post('/api/getMovieTrailers', (req, res) => {
 		`SELECT DISTINCT m.name, t.YoutubeID
 	FROM e7shah.movies m
 	LEFT JOIN Trailers t ON t.movieID = m.id
-	WHERE m.name = ?`;
+	WHERE m.name LIKE ?`;
 	
 	console.log(sql);
 
-	let data = [req.body.name];
+	let data = [req.body.name + "%"];
 	console.log(data); 
 
 	connection.query(sql, data, (error, results, fields) => {

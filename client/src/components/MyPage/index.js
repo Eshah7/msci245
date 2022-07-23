@@ -151,7 +151,7 @@ const MyPage = () => {
                             onChange={handleMovieTitleChange}
 
                         />
-                        <FormHelperText> Enter a movie name to watch its trailer! (Ex. 12 Angry Men) </FormHelperText>
+                        <FormHelperText> Enter any movie's name or the letter it starts with to watch its trailer! (Ex. 12 Angry Men) </FormHelperText>
 
                     </Grid>
 
@@ -159,7 +159,7 @@ const MyPage = () => {
                     <Box sx={{ m: 2 }} />
                     <Grid Item>
                         <Button variant="contained" color="primary" onClick={() => { handleApiGetMovieTrailers() }}>
-                            Search Trailers
+                            Search Trailer
                         </Button>
                     </Grid>
 
@@ -261,6 +261,8 @@ const MovieInfo = (props) => (
         </Typography>
 
         <YoutubeVideo YoutubeID={props.YoutubeID} />
+
+        <Box sx={{ m: 2 }} />
     </div>
 )
 
@@ -272,7 +274,7 @@ const YoutubeVideo = (props) => (
                     width="853"
                     height="480"
                     src={`https://www.youtube.com/embed/${props.YoutubeID}`}
-                    frameBorder="0"
+                    frameBorder="1"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                     title="Embedded youtube"
