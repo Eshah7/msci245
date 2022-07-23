@@ -16,7 +16,8 @@ import TextField from '@material-ui/core/TextField';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import YouTube from 'react-youtube';
 
-const serverURL = "";
+const serverURL = "http://ec2-18-216-101-119.us-east-2.compute.amazonaws.com:3029"; //enable for dev mode
+// const serverURL = "";
 const opacityValue = 0.9;
 
 // Create a theme

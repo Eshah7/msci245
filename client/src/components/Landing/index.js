@@ -13,6 +13,8 @@ import Button from "@mui/material/Button";
 import AdbIcon from "@mui/icons-material/Adb";
 import history from '../Navigation/history';
 
+const serverURL = "http://ec2-18-216-101-119.us-east-2.compute.amazonaws.com:3029"; //enable for dev mode
+// const serverURL = "";
 const opacityValue = 1;
 
 // Create a theme
