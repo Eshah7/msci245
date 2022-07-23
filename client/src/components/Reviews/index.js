@@ -445,7 +445,7 @@ const Appbar = (props) => (
                             fontFamily: "monospace",
                             fontWeight: 700,
                             letterSpacing: ".3rem",
-                            color: "aliceblue",
+                            color: "white",
                             textDecoration: "none"
                         }}
                     >

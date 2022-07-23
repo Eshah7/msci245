@@ -245,7 +245,7 @@ const Appbar = (props) => (
                             sx={{ my: 2, color: "white", display: "block" }}
                             style={{ cursor: "pointer" }}
                         >
-                            Movie
+                            Movie Trailers
                         </Button>
                     </Box>
                 </Toolbar>
