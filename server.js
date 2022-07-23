@@ -6,6 +6,7 @@ const path = require("path");
 const bodyParser = require("body-parser");
 
 const { response } = require('express');
+const { database } = require('./config.js');
 
 // App is the object, once you use post, its a POST API!
 const app = express();
@@ -102,25 +103,25 @@ app.post('/api/searchMovie', (req, res) => {
 	let titleWHERE = "";
 	let actorWHERE = "";
 	let directorWHERE = "";
-	let totalWHERE = []; 
+	let totalWHERE = [];
 	let finalWHERE = "";
 
 	if (title !== "") {
 		let titleWHERE = " m.name = ?";
 		data.push(title);
-		totalWHERE.push(titleWHERE); 
+		totalWHERE.push(titleWHERE);
 	}
 
 	if (actor !== "") {
-			let actorWHERE = ` CONCAT(a.first_name, " ", a.last_name) = ? `;
+		let actorWHERE = ` CONCAT(a.first_name, " ", a.last_name) = ? `;
 		data.push(actor);
-		totalWHERE.push(actorWHERE); 
+		totalWHERE.push(actorWHERE);
 	}
 
 	if (director !== "") {
-			let directorWHERE = ` CONCAT(d.first_name, " ", d.last_name) = ? `;
+		let directorWHERE = ` CONCAT(d.first_name, " ", d.last_name) = ? `;
 		data.push(director);
-		totalWHERE.push(directorWHERE); 
+		totalWHERE.push(directorWHERE);
 	}
 
 	totalWHERE.map(function (field) {
@@ -129,7 +130,7 @@ app.post('/api/searchMovie', (req, res) => {
 				finalWHERE += ' AND ';
 			};
 
-			finalWHERE += field; 
+			finalWHERE += field;
 		};
 	});
 
@@ -149,6 +150,35 @@ app.post('/api/searchMovie', (req, res) => {
 	});
 	connection.end();
 
+});
+
+// API to get movie trailers
+app.post('/api/getMovieTrailers', (req, res) => {
+
+	let connection = mysql.createConnection(config);
+
+	let sql =
+		`SELECT DISTINCT m.name, t.YoutubeID
+	FROM e7shah.movies m
+	LEFT JOIN Trailers t ON t.movieID = m.id
+	WHERE m.name = ?`;
+	
+	console.log(sql);
+
+	let data = [req.body.name];
+	console.log(data); 
+
+	connection.query(sql, data, (error, results, fields) => {
+		if (error) {
+			return console.error(error.message);
+		}
+
+		let string = JSON.stringify(results);
+		//let obj = JSON.parse(string);
+
+		res.send({ express: string });
+	});
+	connection.end();
 });
 
 

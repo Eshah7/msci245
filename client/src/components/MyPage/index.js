@@ -15,6 +15,7 @@ import history from '../Navigation/history';
 import TextField from '@material-ui/core/TextField';
 import FormHelperText from '@material-ui/core/FormHelperText';
 
+const serverURL = "";
 const opacityValue = 0.9;
 
 // Create a theme
@@ -71,7 +72,46 @@ const MyPage = () => {
         setMovieTitle(event.target.value);
     }
 
-    const [youtubeID, setYoutubeID] = React.useState("");
+    const [video, setVideo] = React.useState([]);
+
+    const callApiGetMovieTrailers = async () => {
+
+        const url = serverURL + "/api/getMovieTrailers";
+        console.log(url);
+
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                //authorization: `Bearer ${this.state.token}`
+            },
+            body: JSON.stringify({
+                name: movieTitle
+            })
+        });
+        const body = await response.json();
+        if (response.status !== 200) throw Error(body.message);
+        console.log("New Search", body);
+        return body;
+    }
+
+    const handleApiGetMovieTrailers = () => {
+        callApiGetMovieTrailers()
+            .then(res => {
+                console.log("callApiSearchMovie returned: ", res)
+                var parsed = JSON.parse(res.express);
+                console.log("callApiSearchMovie parsed: ", parsed)
+                setVideo(parsed);
+                console.trace(parsed.YoutubeID);
+
+            })
+
+    }
+
+
+
+
+
 
     return (
 
@@ -117,19 +157,32 @@ const MyPage = () => {
 
                     </Grid>
 
-                   
 
                     <Box sx={{ m: 2 }} />
                     <Grid Item>
-                        <Button variant="contained" color="primary">
+                        <Button variant="contained" color="primary" onClick={() => { handleApiGetMovieTrailers() }}>
                             Search Trailers
                         </Button>
                     </Grid>
 
-                    <Box sx={{ m: 3 }} />
+
+
+                    <Box sx={{ m: 2 }} />
 
                     <Grid Item>
-                        <YoutubeVideo embedId="oR_e9y-bka0" />
+
+                      {Object.keys(video).length !== 0 &&  <MovieInfo
+                            name={video.name}
+                            YoutubeID={video.YoutubeID} >
+
+                        </MovieInfo>} 
+
+                    </Grid>
+
+                    <Box sx={{ m: 2 }} />
+
+                    <Grid Item>
+
                     </Grid>
 
 
@@ -194,12 +247,22 @@ const Appbar = (props) => (
     </div>
 )
 
+const MovieInfo = (props) => (
+    <div>
+        <Typography variant="h3" gutterBottom component="div">
+            Trailer For: {props.name}
+        </Typography>
+
+        <YoutubeVideo YoutubeID={props.YoutubeID} />
+    </div>
+)
+
 const YoutubeVideo = (props) => (
     <div className="video-responsive">
         <iframe
             width="853"
             height="480"
-            src={`https://www.youtube.com/embed/${props.embedId}`}
+            src={`https://www.youtube.com/embed/${props.YoutubeID}`}
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
