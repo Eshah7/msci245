@@ -75,10 +75,6 @@ const MyPage = () => {
 
     const [video, setVideo] = React.useState([]);
 
-    React.useEffect(() => {
-        handleApiGetMovieTrailers();
-    }, []);
-
     const callApiGetMovieTrailers = async () => {
 
         const url = serverURL + "/api/getMovieTrailers";
@@ -112,9 +108,6 @@ const MyPage = () => {
             })
 
     }
-
-
-
 
 
 
@@ -176,11 +169,20 @@ const MyPage = () => {
 
                     <Grid Item>
 
-                        {Object.keys(video).length !== 0 && <MovieInfo
-                            name = {video.name}
-                            YoutubeID={video.YoutubeID}
-                        > </MovieInfo>
-                        }
+
+                        {video.map(function (trailer) {
+
+                            return (
+
+                                Object.keys(trailer).length !== 0 && <MovieInfo
+                                    name={trailer.name}
+                                    YoutubeID={trailer.YoutubeID}
+                                > </MovieInfo>
+
+                            )
+                        })}
+
+
 
                     </Grid>
 
@@ -254,8 +256,8 @@ const Appbar = (props) => (
 
 const MovieInfo = (props) => (
     <div>
-        <Typography variant="h3" gutterBottom component="div">
-            Trailer For: {props.name}
+        <Typography variant="h4" gutterBottom component="div">
+            <strong> Trailer For: </strong> {props.name}
         </Typography>
 
         <YoutubeVideo YoutubeID={props.YoutubeID} />
@@ -263,20 +265,20 @@ const MovieInfo = (props) => (
 )
 
 const YoutubeVideo = (props) => (
-    <div> 
-    <Container> 
-    <div className="video-responsive">
-        <iframe
-            width="853"
-            height="480"
-            src={`https://www.youtube.com/embed/${props.YoutubeID}`}
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            title="Embedded youtube"
-        />
-    </div>
-    </Container>
+    <div>
+        <Container>
+            <div className="video-responsive">
+                <iframe
+                    width="853"
+                    height="480"
+                    src={`https://www.youtube.com/embed/${props.YoutubeID}`}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    title="Embedded youtube"
+                />
+            </div>
+        </Container>
     </div>
 )
 
